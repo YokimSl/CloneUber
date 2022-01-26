@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import { Provider } from 'react-redux';
 import HomeScreen from './srceens/HomeScreen';
 import { store } from './store';
@@ -16,6 +16,11 @@ export default function App() {
     <Provider store={store}>
      <NavigationContainer>
       <SafeAreaProvider> 
+       <KeyboardAvoidingView 
+       behavior={Platform.OS === "ios" ? "padding" : "height"}
+       style={{flex: 1}}
+       keyboardVerticalOffset={Platform.OS === "ios" ? -64: 0}
+       >
         <Stack.Navigator>
           <Stack.Screen  
           name='HomeScreen'
@@ -28,17 +33,11 @@ export default function App() {
           options={{headerShown: false,}}
           />
         </Stack.Navigator>
+      </KeyboardAvoidingView>
       </SafeAreaProvider> 
      </NavigationContainer>
     </Provider>
     
   )}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
